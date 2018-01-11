@@ -24,15 +24,13 @@ jobs:
   serial: false
   plan:
   - get: pull-requests
-    params:
-      fetch_merge: true
-      version: every
+    fetch_merge: true
+    version: every
     trigger: true
   - task:  test-output
     config:
       inputs:
       - name: pull-requests
-        path: ""
       platform: linux
       image_resource:
         type: docker-image
