@@ -28,9 +28,23 @@ jobs:
 #      fetch_merge: true
     version: every
     trigger: true
+  - task: sleep a while
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
+      outputs:
+      - name: some_files
+      run:
+        path: sleep
+        args:
+        - 30
+
   - task:  test-output
     config:
       inputs:
+      - name: some_files
       - name: pull-requests
       platform: linux
       image_resource:
