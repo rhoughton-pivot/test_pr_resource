@@ -16,13 +16,13 @@ resources:
 - name: pull-requests
   type: pull-request
   source:
-    access_token: e5f7f94d5ffe705a0c8a4e5cded340e8f5a5e86c
     base: master
     repo: rhoughton-pivot/test_pr_resource
 
 jobs:
 - name: test_pr_resource
   public: false
+  serial: false
   plan:
   - get: pull-requests
     params:
@@ -32,6 +32,9 @@ jobs:
     trigger: true
   - task:  test-output
     config:
+      inputs:
+      - name: pull-requests
+        path: ""
       platform: linux
       image_resource:
         type: docker-image
@@ -39,5 +42,15 @@ jobs:
       run:
         path: cat
         args:
-        - test_pr_resource/verfile
+         - "./pull-requests/verfile"
+    on_success:
+      put: pull-requests
+      params:
+        path: pull-requests
+        status: success
+    on_failure:
+      put: pull-requests
+      params:
+        path: pull-requests
+        status: failure
 
