@@ -28,7 +28,7 @@ jobs:
     params:
       fetch_merge: true
       depth: 1
-#      version: every
+      version: every
     trigger: true
   - task:  test-output
     config:
