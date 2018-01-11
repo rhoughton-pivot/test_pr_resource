@@ -24,8 +24,8 @@ jobs:
   serial: false
   plan:
   - get: pull-requests
-    params:
-      fetch_merge: true
+#    params:
+#      fetch_merge: true
     version: every
     trigger: true
   - task:  test-output
