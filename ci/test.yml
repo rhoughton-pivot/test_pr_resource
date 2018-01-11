@@ -21,7 +21,7 @@ resources:
 jobs:
 - name: test_pr_resource
   public: false
-  serial: true
+  serial: false
   plan:
   - get: pull-requests
 #    params:
