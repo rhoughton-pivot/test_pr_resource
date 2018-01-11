@@ -16,7 +16,6 @@ resources:
 - name: pull-requests
   type: pull-request
   source:
-    base: master
     repo: rhoughton-pivot/test_pr_resource
 
 jobs:
@@ -27,7 +26,6 @@ jobs:
   - get: pull-requests
     params:
       fetch_merge: true
-      depth: 1
       version: every
     trigger: true
   - task:  test-output
