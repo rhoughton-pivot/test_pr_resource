@@ -24,10 +24,16 @@ jobs:
   serial: false
   plan:
   - get: pull-requests
-#    params:
-#      fetch_merge: true
     version: every
     trigger: true
+    params:
+      fetch_merge: true
+  - get: regular-pr
+    resource: pull-requests
+  - put: pull-requests
+    params:
+      path: regular-pr
+      status: pending
   - task: sleep a while
     config:
       platform: linux
@@ -57,11 +63,11 @@ jobs:
     on_success:
       put: pull-requests
       params:
-        path: pull-requests
+        path: regular-pr
         status: success
     on_failure:
       put: pull-requests
       params:
-        path: pull-requests
+        path: regular-pr
         status: failure
 
