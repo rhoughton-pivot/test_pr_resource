@@ -31,6 +31,9 @@ jobs:
     trigger: true
   - task:  test-output
     config:
+      inputs:
+      - name: pull-requests
+        path: ""
       platform: linux
       image_resource:
         type: docker-image
@@ -38,5 +41,5 @@ jobs:
       run:
         path: cat
         args:
-        - test_pr_resource/verfile
+         - "./pull-requests/verfile"
 
