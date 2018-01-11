@@ -1,0 +1,43 @@
+---
+
+resource_types:
+- name: pull-request
+  type: docker-image
+  source:
+    repository: jtarchie/pr
+
+resources:
+#- name: testrepo
+#  type: git
+#  source:
+#    branch: master
+#    uri: git@github.com:rhoughton-pivot/test_pr_resource
+
+- name: pull-requests
+  type: pull-request
+  source:
+    access_token: e5f7f94d5ffe705a0c8a4e5cded340e8f5a5e86c
+    base: master
+    repo: rhoughton-pivot/test_pr_resource
+
+jobs:
+- name: test_pr_resource
+  public: false
+  plan:
+  - get: pull-requests
+    params:
+      fetch_merge: true
+      depth: 1
+      version: every
+    trigger: true
+  - task:  test-output
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
+      run:
+        path: cat
+        args:
+        - test_pr_resource/verfile
+
