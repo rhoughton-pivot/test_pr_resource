@@ -7,4 +7,5 @@ ls -la
 
 sleep 60
 
+exit 1
 
