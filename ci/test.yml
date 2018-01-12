@@ -29,16 +29,16 @@ jobs:
     trigger: true
     params:
       fetch_merge: true
-  - get: regular-pr
-    resource: pull-requests
-    version: every
-    params:
-      fetch_merge: false
-
-  - put: pull-requests
-    params:
-      path: regular-pr
-      status: pending
+#  - get: regular-pr
+#    resource: pull-requests
+#    version: every
+#    params:
+#      fetch_merge: false
+#
+#  - put: pull-requests
+#    params:
+#      path: regular-pr
+#      status: pending
 
   - task: sleep a while
     config:
@@ -47,7 +47,7 @@ jobs:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: busybox}
+        source: {repository: ubuntu}
       outputs:
       - name: some_files
       run:
@@ -61,19 +61,19 @@ jobs:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: busybox}
+        source: {repository: ubuntu}
       run:
         path: cat
         args:
          - "./pull-requests/verfile"
-    on_success:
-      put: pull-requests
-      params:
-        path: regular-pr
-        status: success
-    on_failure:
-      put: pull-requests
-      params:
-        path: regular-pr
-        status: failure
-
+#    on_success:
+#      put: pull-requests
+#      params:
+#        path: regular-pr
+#        status: success
+#    on_failure:
+#      put: pull-requests
+#      params:
+#        path: regular-pr
+#        status: failure
+#
