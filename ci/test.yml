@@ -38,6 +38,8 @@ jobs:
 
   - task: sleep a while
     config:
+      inputs:
+      - name: pull-requests
       platform: linux
       image_resource:
         type: docker-image
