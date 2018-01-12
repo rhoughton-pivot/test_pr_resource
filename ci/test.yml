@@ -63,14 +63,8 @@ jobs:
         path: cat
         args:
          - "./pull-requests/verfile"
-#    on_success:
-#      put: pull-requests
-#      params:
-#        path: regular-pr
-#        status: success
-#    on_failure:
-#      put: pull-requests
-#      params:
-#        path: regular-pr
-#        status: failure
-#
+    on_failure:
+      put: pull-requests
+      params:
+        path: regular-pr
+        status: failure
