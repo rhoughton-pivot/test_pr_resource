@@ -30,10 +30,12 @@ jobs:
       fetch_merge: true
   - get: regular-pr
     resource: pull-requests
+    version: every
   - put: pull-requests
     params:
       path: regular-pr
       status: pending
+
   - task: sleep a while
     config:
       platform: linux
