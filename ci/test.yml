@@ -29,16 +29,13 @@ jobs:
     trigger: true
     params:
       fetch_merge: true
-#  - get: regular-pr
-#    resource: pull-requests
-#    version: every
-#    params:
-#      fetch_merge: false
-#
-#  - put: pull-requests
-#    params:
-#      path: regular-pr
-#      status: pending
+  - get: regular-pr
+    resource: pull-requests
+
+  - put: pull-requests
+    params:
+      path: regular-pr
+      status: pending
 
   - task: sleep a while
     config:
