@@ -23,6 +23,7 @@ jobs:
   public: false
   serial: false
   plan:
+
   - get: pull-requests
     version: every
     trigger: true
@@ -31,6 +32,9 @@ jobs:
   - get: regular-pr
     resource: pull-requests
     version: every
+    params:
+      fetch_merge: false
+
   - put: pull-requests
     params:
       path: regular-pr
@@ -47,9 +51,7 @@ jobs:
       outputs:
       - name: some_files
       run:
-        path: sleep
-        args:
-        - 30
+        path: pull-requests/ci/shellscript.sh
 
   - task:  test-output
     config:
