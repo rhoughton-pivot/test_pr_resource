@@ -49,6 +49,11 @@ jobs:
       - name: some_files
       run:
         path: pull-requests/ci/shellscript.sh
+    on_failure:
+      put: pull-requests
+      params:
+        path: regular-pr
+        status: failure
 
   - task:  test-output
     config:
@@ -63,8 +68,3 @@ jobs:
         path: cat
         args:
          - "./pull-requests/verfile"
-    on_failure:
-      put: pull-requests
-      params:
-        path: regular-pr
-        status: failure
