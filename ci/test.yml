@@ -23,6 +23,7 @@ jobs:
   public: false
   serial: false
   plan:
+
   - get: pull-requests
     version: every
     trigger: true
@@ -30,7 +31,7 @@ jobs:
       fetch_merge: true
   - get: regular-pr
     resource: pull-requests
-    version: every
+
   - put: pull-requests
     params:
       path: regular-pr
@@ -38,16 +39,16 @@ jobs:
 
   - task: sleep a while
     config:
+      inputs:
+      - name: pull-requests
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: busybox}
+        source: {repository: ubuntu}
       outputs:
       - name: some_files
       run:
-        path: sleep
-        args:
-        - 30
+        path: pull-requests/ci/shellscript.sh
 
   - task:  test-output
     config:
@@ -57,7 +58,7 @@ jobs:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: busybox}
+        source: {repository: ubuntu}
       run:
         path: cat
         args:
@@ -67,9 +68,5 @@ jobs:
       params:
         path: regular-pr
         status: success
-    on_failure:
-      put: pull-requests
-      params:
-        path: regular-pr
-        status: failure
+        merge.method: merge
 
