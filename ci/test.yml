@@ -28,6 +28,8 @@ jobs:
     version: every
     trigger: true
     params:
+      git:
+        depth: 1
       fetch_merge: true
   - get: regular-pr
     resource: pull-requests
