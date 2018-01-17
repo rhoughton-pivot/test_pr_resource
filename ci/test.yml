@@ -31,16 +31,16 @@ jobs:
       fetch_merge: true
       git:
         depth: 1
-  - get: regular-pr
-    resource: pull-requests
-    params:
-      git:
-        depth: 1
+#  - get: regular-pr
+#    resource: pull-requests
+#    params:
+#      git:
+#        depth: 1
 
-  - put: pull-requests
-    params:
-      path: regular-pr
-      status: pending
+#  - put: pull-requests
+#    params:
+#      path: regular-pr
+#      status: pending
 
   - task: sleep a while
     config:
@@ -54,11 +54,11 @@ jobs:
       - name: some_files
       run:
         path: pull-requests/ci/shellscript.sh
-    on_failure:
-      put: pull-requests
-      params:
-        path: regular-pr
-        status: failure
+#    on_failure:
+#      put: pull-requests
+#      params:
+#        path: regular-pr
+#        status: failure
 
 
   - task:  test-output
@@ -74,11 +74,11 @@ jobs:
         path: cat
         args:
          - "./pull-requests/verfile"
-    on_success:
-      put: pull-requests
-      params:
-        path: regular-pr
-        status: success
-        merge:
-          method: squash
-
+#    on_success:
+#      put: pull-requests
+#      params:
+#        path: regular-pr
+#        status: success
+#        merge:
+#          method: squash
+#
