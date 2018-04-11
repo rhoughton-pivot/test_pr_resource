@@ -29,8 +29,13 @@ jobs:
     trigger: true
     params:
       fetch_merge: true
+      git:
+        depth: 1
   - get: regular-pr
     resource: pull-requests
+    params:
+      git:
+        depth: 1
 
   - put: pull-requests
     params:
@@ -68,3 +73,12 @@ jobs:
         path: cat
         args:
          - "./pull-requests/verfile"
+    on_success:
+      put: pull-requests
+      params:
+        path: regular-pr
+        status: success
+        merge:
+          method: squash
+
+
